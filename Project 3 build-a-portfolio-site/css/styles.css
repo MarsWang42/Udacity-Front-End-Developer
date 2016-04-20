@@ -8,6 +8,7 @@ body {
 .logo {
   margin-top: 20px;
 }
+
 .bg-dkgreen {
   background: #528881;
 }
@@ -31,14 +32,14 @@ body {
 }
 
 .text-lavender {
-  color: #BCBCF2;
+  color: #bcbcf2;
 }
 
 .hr-thick {
-    border: none;
-    height: 3px;
-    color: #a1a1a1; /* old IE */
-    background-color: #a1a1a1; /* Modern Browsers */
+  border: none;
+  height: 3px;
+  color: #a1a1a1; /* old IE */
+  background-color: #a1a1a1; /* Modern Browsers */
 }
 
 .margin-top30 {
