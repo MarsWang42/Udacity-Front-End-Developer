@@ -1,0 +1,46 @@
+body {
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
+  margin: 10px;
+  background: #bfbfbf;
+}
+
+.logo {
+  margin-top: 20px;
+}
+.bg-dkgreen {
+  background: #528881;
+}
+
+.title {
+  font-weight: 100;
+  font-size: 64px;
+  color: #953904;
+}
+
+.right-align {
+  text-align: right;
+}
+
+.text-cap {
+  text-transform: uppercase;
+}
+
+.text-gray {
+  color: #bfbfbf;
+}
+
+.text-lavender {
+  color: #BCBCF2;
+}
+
+.hr-thick {
+    border: none;
+    height: 3px;
+    color: #a1a1a1; /* old IE */
+    background-color: #a1a1a1; /* Modern Browsers */
+}
+
+.margin-top30 {
+  margin-top: 30px;
+}
