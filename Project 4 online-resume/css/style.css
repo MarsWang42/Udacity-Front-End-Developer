@@ -2,6 +2,7 @@
   padding:0;
   margin:0;
   font-family: 'Roboto', sans-serif;
+
 }
 
 .clearfix {
@@ -57,6 +58,12 @@ h2, h3, h4, h5 {
   float: left;
 }
 
+#name {
+  font-family: "Merriweather", serif;
+  font-size: 700;
+  margin-right: 20px;
+}
+
 .location-text {
   font-style: italic;
   font-size: 14px;
@@ -82,7 +89,7 @@ a {
 .welcome-message {
   font-style: italic;
   font-size: 18px;
-  color: #F3F3F3;
+  color: #E3E3E3;
   line-height: 28px;
 }
 
