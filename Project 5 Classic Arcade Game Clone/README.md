@@ -1,6 +1,6 @@
-frontend-nanodegree-arcade-game
-===============================
+#Project 5 Classic Arcade Game Clone
 
-Students should use this [rubric](https://www.udacity.com/course/viewer/#!/c-nd001/l-2696458597/m-2687128535) for self-checking their submission.
+In this case, I implemented a game named Collect the stars.
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+Everything is quite straightforward. All you need to do is collecting the stars while avoiding being caught by the bugs!
+The bugs will get faster every time you collect 3 stars, watch out!
