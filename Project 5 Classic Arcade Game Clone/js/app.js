@@ -1,5 +1,7 @@
 var score = 0;
 var difficulty = 0;
+var TILE_WIDTH = 101;
+var TILE_HEIGHT = 83;
 
 //Define the Avatar of all items and characters
 var Avatar = function(x, y, sprite) {
@@ -21,8 +23,8 @@ var Enemy = function(x, y, sprite) {
 Enemy.prototype = Object.create(Avatar.prototype);
 Enemy.prototype.constructor = Enemy;
 Enemy.prototype.body = {
-    'x': 101,
-    'y': 100
+    'x': TILE_WIDTH,
+    'y': TILE_HEIGHT
 };
 Enemy.prototype.restart = function() {
     //The position new bugs appear
@@ -30,7 +32,7 @@ Enemy.prototype.restart = function() {
     var startY = [60, 145, 230];
     this.y = selectRandomItem(startY);
     //Speed increase with difficulty
-    this.speed = getRandomInt(100, 200) + difficulty * 50;
+    this.speed = getRandomInt(100, 200) + difficulty * 25;
 };
 // Update the enemy's position
 Enemy.prototype.update = function(dt) {
@@ -39,7 +41,7 @@ Enemy.prototype.update = function(dt) {
     } else {
         this.restart();
     }
-    if (detectCollision(this, player)) {
+    if (player.detectCollision(this)) {
         // If the bug hits player, do follow
         player.reset();
         score = 0;
@@ -58,8 +60,8 @@ var Player = function(x, y, sprite) {
 Player.prototype = Object.create(Avatar.prototype);
 Player.prototype.constructor = Player;
 Player.prototype.body = {
-    'x': 101,
-    'y': 100
+    'x': TILE_WIDTH,
+    'y': TILE_HEIGHT
 };
 Player.prototype.reset = function() {
     this.x = 200;
@@ -67,8 +69,8 @@ Player.prototype.reset = function() {
 };
 //Read the input and move
 Player.prototype.update = function() {
-    var xStep = 101;
-    var yStep = 83;
+    var xStep = TILE_WIDTH;
+    var yStep = TILE_HEIGHT;
     switch (this.action) {
         case 'up':
             if (this.y > canvas.boundaries.up) {
@@ -96,6 +98,14 @@ Player.prototype.update = function() {
 Player.prototype.handleInput = function(e) {
     this.action = e;
 };
+//Detect whether collision happens between player and some item
+Player.prototype.detectCollision = function(item) {
+    return (this.x < item.x + item.body.x/2 &&
+            this.x > item.x - player.body.x/2 &&
+            this.y < item.y + item.body.y/2 &&
+            this.y > item.y - player.body.y/2);
+};
+
 
 //The star stand for our goal
 var Star = function(x, y, sprite) {
@@ -107,8 +117,8 @@ var Star = function(x, y, sprite) {
 Star.prototype = Object.create(Avatar.prototype);
 Star.prototype.constructor = Star;
 Star.prototype.body = {
-    'x': 101,
-    'y': 100
+    'x': TILE_WIDTH,
+    'y': TILE_HEIGHT
 };
 Star.prototype.refresh = function() {
     startX = [0, 100, 200, 300, 400];
@@ -117,13 +127,13 @@ Star.prototype.refresh = function() {
 Star.prototype.update = function() {
     //Once we reach the star, we get one point and its
     //position changes
-    if (detectCollision(this, player)) {
+    if (player.detectCollision(this)) {
         this.refresh();
         score += 1;
         $('#score').text(score);
         player.reset();
         //Every time you get 3 scores, the difficulty increase
-        difficulty = score / 3;
+        difficulty = Math.floor(score/3);
     }
 };
 
