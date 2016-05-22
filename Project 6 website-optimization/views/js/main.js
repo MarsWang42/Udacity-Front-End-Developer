@@ -380,6 +380,7 @@ var makeRandomPizza = function() {
 
 // returns a DOM element for each pizza
 var pizzaElementGenerator = function(i) {
+  'use strict';
   var pizzaContainer, // contains pizza title, image and list of ingredients
     pizzaImageContainer, // contains the pizza image
     pizzaImage, // the pizza image itself
@@ -422,17 +423,17 @@ var pizzaElementGenerator = function(i) {
 var resizePizzas = function(size) {
   window.performance.mark("mark_start_resize"); // User Timing API function
 
-  // Changes the value for the size of the pizza above the slider
+  // Changes the value for the size of the pizza above the slider. getElementById is faster than querySelector.
   function changeSliderLabel(size) {
     switch (size) {
       case "1":
-        document.querySelector("#pizzaSize").innerHTML = "Small";
+        document.getElementById("pizzaSize").innerHTML = "Small";
         return;
       case "2":
-        document.querySelector("#pizzaSize").innerHTML = "Medium";
+        document.getElementById("pizzaSize").innerHTML = "Medium";
         return;
       case "3":
-        document.querySelector("#pizzaSize").innerHTML = "Large";
+        document.getElementById("pizzaSize").innerHTML = "Large";
         return;
       default:
         console.log("bug in changeSliderLabel");
@@ -444,7 +445,8 @@ var resizePizzas = function(size) {
   // Returns the size difference to change a pizza element from one size to another. Called by changePizzaSlices(size).
   function determineDx(elem, size) {
     var oldWidth = elem.offsetWidth;
-    var windowWidth = document.querySelector("#randomPizzas").offsetWidth;
+    // * getElementById is faster.
+    var windowWidth = document.getElementById("randomPizzas").offsetWidth;
     var oldSize = oldWidth / windowWidth;
 
     // Optional TODO: change to 3 sizes? no more xl?
@@ -468,15 +470,15 @@ var resizePizzas = function(size) {
     return dx;
   }
 
-  //* Since these variables keep the same, drag the calculation out of the iteration.
-  //* I tried to use getElementsByClassname instead of querySelectorAll but the browser keep telling me it is not a function so I have to give it up.
-  var pizzaContainers = document.querySelectorAll(".randomPizzaContainer");
+  // * Since these variables keep the same, drag the calculation out of the iteration.
+  // * querySelectorAll is replaced by getElementsByClassName because the later one is faster.
+  var pizzaContainers = document.getElementsByClassName('randomPizzaContainer');
   var dx = determineDx(pizzaContainers[0], size);
   var newwidth = (pizzaContainers[0].offsetWidth + dx) + 'px';
 
   // Iterates through pizza elements on the page and changes their widths
   function changePizzaSizes(size) {
-    for (var i = 0; i < pizzaContainers.length; i++) {
+    for (var i = 0, len = pizzaContainers.length; i < len; i++) {
       pizzaContainers[i].style.width = newwidth;
     }
   }
@@ -492,6 +494,7 @@ var resizePizzas = function(size) {
 
 window.performance.mark("mark_start_generating"); // collect timing data
 
+//* pizzasDiv should be defined out of the iteration.
 var pizzasDiv = document.getElementById("randomPizzas");
 // This for-loop actually creates and appends all of the pizzas when the page loads
 for (var i = 2; i < 100; i++) {
@@ -526,8 +529,8 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
-  //* I tried to use getElementsByClassname instead of querySelectorAll but the browser keep telling me it is not a function so I have to give it up.
-  var items = document.querySelectorAll('.mover');
+  //* I tried to use getElementsByClassName instead of querySelectorAll but the browser keep telling me it is not a function so I have to give it up.
+  var items = document.getElementsByClassName('mover');
 
   //* Since phase only take 5 different values, drag it out of the huge iteration.
   var phase = [];
@@ -535,7 +538,7 @@ function updatePositions() {
     phase[i] = Math.sin((document.body.scrollTop / 1250) + i);
   }
 
-  for (var j = 0; j < items.length; j++) {
+  for (var j = 0, len = items.length; j < len; j++) {
     items[j].style.left = items[j].basicLeft + 100 * phase[j % 5] + 'px';
   }
 
@@ -561,7 +564,8 @@ document.addEventListener('DOMContentLoaded', function() {
   var w = window.innerWidth;
   //* Calculate the maximum number of pizzas in a window's content area
   var pizzaRequired = Math.ceil(h / 100) * Math.ceil(w / 73.333);
-  //* Only render necessary number of pizzas
+  //* Only render necessary number of pizzas and the movingPizzas should be defined out of the iteration.
+  movingPizzas = document.getElementById("movingPizzas1")
   for (var i = 0; i < pizzaRequired; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
@@ -570,7 +574,7 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.style.width = "73.333px";
     elem.basicLeft = (i % cols) * s;
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
-    document.querySelector("#movingPizzas1").appendChild(elem);
+    movingPizzas.appendChild(elem);
   }
   updatePositions();
 });
