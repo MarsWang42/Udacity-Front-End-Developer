@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Neightborhood Map</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse">
+        <div class="navbar-brand">Neighborhood Map by Mars</div>
+    </nav>
+    <div class="container">
+        <div class="row" id="mainTab">
+            <div class="col-md-3" id="userTab">
+                <br>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="area-search" placeholder="Search place..." value="Irvine"/>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" id="area-search-button">Search Area</button>
+                    </span>
+                </div>
+                <br>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="place-search" placeholder="Search area..." value="pizza"/>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" id="place-search-button">Search Place</button>
+                    </span>
+                </div>
+                <div class="list-group" >
+                    <button class="list-group-item list-group-item-action active" id="toggle-listings"
+                        href="#place-list" data-toggle="collapse" data-bind="enable: filteredInterestedPlaces().length !== 0">
+                        Interesting places</button>
+                    <div class="input-group">
+                        <span id="filter-addon" class="input-group-addon glyphicon glyphicon-filter"></span>
+                        <input type="text" class="form-control" id="filter" placeholder="Filter..."
+                            aria-describedby="filter-addon" data-bind="value: filter">
+                    </div>
+                    <div id="place-list" class="panel-collapse collapse" data-bind="foreach: filteredInterestedPlaces">
+                        <button type="button" class="list-group-item list-group-item-action" data-bind="click: populateInfoWindow">
+                            <span data-bind="text: title"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9" id="map">
+            </div>
+        </div>
+    </div>
+
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/knockout-3.4.0.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script
+        src=
+        "https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=MyKey">
+    </script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
