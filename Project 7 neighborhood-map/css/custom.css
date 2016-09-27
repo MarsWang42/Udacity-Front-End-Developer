@@ -1,0 +1,49 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #2e5569;
+}
+
+.list-group {
+    margin-top: 20px;
+}
+
+.navbar {
+    margin-bottom: 0;
+}
+
+.container {
+    width: 100%;
+    height: 90%;
+    position: relative;
+}
+
+#mainTab {
+    height: 100%;
+}
+
+#userTab {
+    overflow-y: scroll;
+    height: 100%;
+}
+
+#filter {
+    margin-top: 1px;
+    height: 35px;
+}
+
+#filter-addon {
+    top: 0;
+}
+
+#map {
+    height: 100%;
+}
+
+#pano {
+    height: 250px;
+    width: 180px;
+
+}
