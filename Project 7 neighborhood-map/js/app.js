@@ -1,4 +1,4 @@
- "use strict";
+"use strict";
 
 function startApp() {
 
@@ -167,8 +167,8 @@ function startApp() {
         }).fail(function(error){
             _this.weather = {
                 error: error.responseJSON.message
-            }
-        })
+            };
+        });
     };
 
     InterestedPlace.prototype.populateInfoWindow = function() {
@@ -239,7 +239,7 @@ function startApp() {
                 var panorama = new google.maps.StreetViewPanorama(
                     document.getElementById('pano'), panoramaOptions);
             } else {
-                var htmlContent = '<h4>' + _this.marker.title + '</h4>' +
+                htmlContent = '<h4>' + _this.marker.title + '</h4>' +
                     '<div>No Street View Found</div><br>' +
                     '<div>Average Temperature: ' + _this.weather.temp + '</div>' +
                     '<div>Highest Temperature: ' + _this.weather.temp_max + '</div>' +
@@ -286,7 +286,7 @@ function startApp() {
             bounds.extend(places[i].marker.position);
         }
         map.fitBounds(bounds);
-    }
+    };
 
     NeighborhoodMapViewModel.prototype.hideListing = function() {
         var _this = this;
@@ -294,7 +294,7 @@ function startApp() {
         for (var i = 0, len = _this.interestedPlaces().length; i < len; i++) {
             _this.interestedPlaces()[i].marker.setMap(null);
         }
-    }
+    };
 
 
     NeighborhoodMapViewModel.prototype.toggleListings = function() {
@@ -305,7 +305,7 @@ function startApp() {
         var isListHidden = $('#place-list').is(":hidden");
         if (isListHidden) _this.showListing();
         else _this.hideListing();
-    }
+    };
 
     // Zoom to the selected area.
     NeighborhoodMapViewModel.prototype.zoomToArea = function() {
@@ -330,7 +330,7 @@ function startApp() {
                 }
             });
         }
-    }
+    };
 
     NeighborhoodMapViewModel.prototype.searchNearbyPlaces = function() {
         var _this = this;
@@ -348,7 +348,7 @@ function startApp() {
                 console.log('Failed to find any place.');
             }
         });
-    }
+    };
 
     NeighborhoodMapViewModel.prototype.createMarkersForPlaces = function(places) {
         var _this = this;
@@ -364,7 +364,7 @@ function startApp() {
         // Jquery is only used for animation.
         $('#place-list').collapse('show');
         _this.showListing();
-    }
+    };
 
     // Now bind the ViewModel to our View.
     var neighborhoodMapViewModel = new NeighborhoodMapViewModel();
