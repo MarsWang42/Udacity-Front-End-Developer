@@ -18,21 +18,21 @@
             <div class="col-md-3" id="userTab">
                 <br>
                 <div class="input-group">
-                    <input type="text" class="form-control" id="area-search" placeholder="Search place..." value="Irvine"/>
+                    <input type="text" class="form-control" id="area-search" placeholder="Search place..." value="Irvine" data-bind="value: areaSearch"/>
                     <span class="input-group-btn">
-                        <button class="btn btn-default" id="area-search-button">Search Area</button>
+                        <button class="btn btn-default" id="area-search-button" data-bind="click: zoomToArea">Search Area</button>
                     </span>
                 </div>
                 <br>
                 <div class="input-group">
-                    <input type="text" class="form-control" id="place-search" placeholder="Search area..." value="pizza"/>
+                    <input type="text" class="form-control" id="place-search" placeholder="Search area..." value="pizza" data-bind="value: placesSearch"/>
                     <span class="input-group-btn">
-                        <button class="btn btn-default" id="place-search-button">Search Place</button>
+                        <button class="btn btn-default" id="place-search-button" data-bind="click: searchNearbyPlaces">Search Place</button>
                     </span>
                 </div>
                 <div class="list-group" >
                     <button class="list-group-item list-group-item-action active" id="toggle-listings"
-                        href="#place-list" data-toggle="collapse" data-bind="enable: filteredInterestedPlaces().length !== 0">
+                        href="#place-list" data-toggle="collapse" data-bind="enable: filteredInterestedPlaces().length !== 0, click: toggleListings">
                         Interesting places</button>
                     <div class="input-group">
                         <span id="filter-addon" class="input-group-addon glyphicon glyphicon-filter"></span>
@@ -57,7 +57,7 @@
     <script src="js/app.js"></script>
     <script async defer
         src=
-        "https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=MyKey&v=3&callback=startApp">
+        "https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=MyKey&v=3&v=3&callback=startApp">
     </script>
   </body>
 </html>

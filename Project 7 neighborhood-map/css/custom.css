@@ -20,6 +20,11 @@ body {
     position: relative;
 }
 
+.error-message {
+    color: red;
+    font-weight: bold;
+}
+
 #mainTab {
     height: 100%;
 }
