@@ -166,7 +166,7 @@ function startApp() {
             };
         }).fail(function(error){
             _this.weather = {
-                error: error.responseJSON.message
+                error: error && error.responseJSON && error.responseJSON.message || 'Error occurred.'
             };
         });
     };
@@ -179,15 +179,11 @@ function startApp() {
         } else {
             _this.marker.setAnimation(google.maps.Animation.BOUNCE);
         }
-        // Loop over all other places marker and reset their animation.
-        var interestedPlaces = neighborhoodMapViewModel.interestedPlaces();
-        for (var i = 0, len = interestedPlaces.length; i < len; i++) {
-            if (interestedPlaces[i].marker !== _this.marker) {
-                interestedPlaces[i].marker.setAnimation(null);
-            }
-        }
         // Deal with the info window.
         if(infoWindow.marker != _this.marker) {
+            // Reset the marker animation.
+            if(infoWindow.marker !== undefined)
+                infoWindow.marker.setAnimation(null);
             // Reset the info window.
             infoWindow.setContent('');
             infoWindow.marker = _this.marker;
@@ -399,4 +395,9 @@ function startApp() {
 
     initMap();
 
+}
+
+// If the google map fail to loade, give an alert.
+function googleError() {
+    window.alert('Fail to load Google Map api');
 }
