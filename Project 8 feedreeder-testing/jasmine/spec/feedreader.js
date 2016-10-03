@@ -60,7 +60,7 @@ $(function() {
          * hiding/showing of the menu element.
          */
         it('should be hidden by default', function() {
-            expect(body.hasClass('menu-hidden')).toBe(true);
+            expect(body.hasClass('menu-hidden')).toBeTruthy();
         });
 
         /* A test that ensures the menu changes
@@ -70,18 +70,16 @@ $(function() {
          */
         it('should be able to be controlled by the toggle button', function() {
             menuButton.click();
-            expect(body.hasClass('menu-hidden')).toBe(false);
+            expect(body.hasClass('menu-hidden')).toBeFalsy();
             menuButton.click();
-            expect(body.hasClass('menu-hidden')).toBe(true);
+            expect(body.hasClass('menu-hidden')).toBeTruthy();
         });
     });
 
     describe('Initial Entries', function() {
 
             beforeEach(function(done) {
-                loadFeed(0, function() {
-                    done();
-                });
+                loadFeed(0, done);
             });
             /* A test that ensures when the loadFeed
              * function is called and completes its work, there is at least
@@ -89,31 +87,33 @@ $(function() {
              * Remember, loadFeed() is asynchronous so this test will require
              * the use of Jasmine's beforeEach and asynchronous done() function.
              */
-            it('should have at least one entry after loading', function(done) {
-                expect($('.feed').has('.entry').length > 0).toBe(true);
-                done();
+            it('should have at least one entry after loading', function() {
+                expect($('.feed .entry').length).toBeGreaterThan(0);
             });
 
         });
 
     describe('New Feed Selection', function() {
         var initialContent;
+        var changedContent;
 
         /* A test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
         beforeEach(function(done) {
-            initialContent = $('.feed').html();
-            loadFeed(1, function() {
+            loadFeed(0, function() {
+              initialContent = $('.feed').html();
+              // Call loadFeed once again after the first one is done.
+              loadFeed(1, function(){
+                changedContent = $('.feed').html();
                 done();
+              });
             });
         });
 
-        it('changes when new content loaded', function(done) {
-            var newContent = $('.feed').html();
-            expect(newContent).not.toBe(initialContent);
-            done();
+        it('changes when new content loaded', function() {
+            expect(changedContent).not.toBe(initialContent);
         });
     });
 }());
